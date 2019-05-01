@@ -129,7 +129,7 @@ static struct miscdevice vga_ball_misc_device = {
  */
 static int __init vga_ball_probe(struct platform_device *pdev)
 {
-        vga_ball_color_t beige = { 0xf9, 0xe4, 0xb7 };
+        vga_ball_color_t yellow = { 0xff, 0xbe, 0x03 };
 	int ret;
 
 	/* Register ourselves as a misc device: creates /dev/vga_ball */
@@ -157,7 +157,8 @@ static int __init vga_ball_probe(struct platform_device *pdev)
 	}
         
 	/* Set an initial color */
-        write_background(&beige);
+        write_background(&yellow);
+        write_coordinates();
 
 	return 0;
 
