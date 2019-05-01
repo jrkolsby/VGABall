@@ -51,7 +51,7 @@ module vga_ball(input logic        clk,
 		&& vcount[9:2] >= (ball_y-4) && (ball_y+4) >= vcount[9:2])
                 || (hcount[10:3] >= (ball_x-4) && (ball_x+4) >= hcount[10:3]
                 && vcount[9:2] >= (ball_y-1) && (ball_y+1) >= vcount[9:2])) 
-	  {VGA_R, VGA_G, VGA_B} = {8'hFF, 8'hFF, 8'hFF};
+	  {VGA_R, VGA_G, VGA_B} = {8'h16, 8'h37, 8'h92};
 	else
 	  {VGA_R, VGA_G, VGA_B} =
              {background_r, background_g, background_b};
