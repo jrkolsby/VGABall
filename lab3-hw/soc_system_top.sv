@@ -192,6 +192,15 @@ module soc_system_top(
    soc_system soc_system0(
      .clk_clk                      ( CLOCK_50 ),
      .reset_reset_n                ( 1'b1 ),
+
+     .vga_r (VGA_R),
+     .vga_g (VGA_G),
+     .vga_b (VGA_B),
+     .vga_clk (VGA_CLK),
+     .vga_hs (VGA_HS),
+     .vga_vs (VGA_VS),
+     .vga_blank_n (VGA_BLANK_N),
+     .vga_sync_n (VGA_SYNC_N),
 			  
      .hps_ddr3_mem_a               ( HPS_DDR3_ADDR ),
      .hps_ddr3_mem_ba              ( HPS_DDR3_BA ),
@@ -313,10 +322,6 @@ module soc_system_top(
    assign PS2_DAT2 = SW[1] ? SW[0] : 1'bZ;
 
    assign TD_RESET_N = SW[0];
-
-   assign {VGA_R, VGA_G, VGA_B} = { 24{ SW[0] } };
-   assign {VGA_BLANK_N, VGA_CLK,
-	   VGA_HS, VGA_SYNC_N, VGA_VS} = { 5{ SW[0] } };
 
 							          
 endmodule

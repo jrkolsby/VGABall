@@ -40,6 +40,16 @@ void set_background_color(const vga_ball_color_t *c)
   }
 }
 
+void set_coordinates(const char *x, const char *y)
+{
+  vga_ball_arg_t vla;
+  vla.ball_x = *x;
+  vla.ball_y = *y;
+  if (ioctl(vga_ball_fd, VGA_BALL_WRITE_COORDINATES, &vla)) {
+      perror("ioctl(VGA_BALL_WRITE_COORDINATES) failed");
+      return;
+  }
+}
 int main()
 {
   vga_ball_arg_t vla;
@@ -70,11 +80,38 @@ int main()
   printf("initial state: ");
   print_background_color();
 
-  while (true) {
+  char x = 4;
+  char y = 4;
+  int xd = 1;
+  int yd = 1;
+  char *xc = &x;
+  char *yc = &y;
+  
+  while(1) {
+    set_coordinates(xc, yc);
+    if (x >= 155){
+      xd = -1;
+    }
+    else if (4 >= x){
+      xd = 1;
+    }
+    if (y >= 115){
+      yd = -1;
+    }
+    else if (4 >= y){
+      yd = 1;
+    }
+    x += xd;
+    y += yd;
+    usleep(50000);
+  }
+  /*
+  for (i = 0 ; i < 24 ; i++) {
     set_background_color(&colors[i % COLORS ]);
     print_background_color();
-    usleep(4000);
+    usleep(400000);
   }
+  */
   
   printf("VGA BALL Userspace program terminating\n");
   return 0;
